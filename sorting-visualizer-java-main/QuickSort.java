@@ -6,16 +6,16 @@ public class QuickSort {
 
     public QuickSort(int[] array) {
         this.array = array;
-        stack = new int[300];
+        stack = new int[84];
         low = 0;
-        high = 299;
+        high = 84;
         array_index = 0;
         compare_index = 0;
         x = 0;
         partition = -1;
         sp = -1;
         stack[++sp] = 0;
-        stack[++sp] = 299;
+        stack[++sp] = 84;
     }
 
     public void swap(int arr[], int i, int j) {

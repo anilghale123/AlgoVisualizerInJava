@@ -1,81 +1,94 @@
-
-
-
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class MergeSort {
       int tempArray[] = new int[300];
       int array[] = new int[300];
-    public int array_index;
-    public int compare_index;
+
+
 
     public int leftIndex;
     public int rightIndex;
     public int mergeIndex;
-    private int stepIndex; // Added to keep track of the current step
+
+    private List<int[]> steps;
 
     public MergeSort(int[] array) {
         this.array = array;
-        this.array_index = 0;
-        this.compare_index = Integer.MAX_VALUE;
+        this.steps = new ArrayList<>();
+        this.steps.add(array.clone());
 
         this.leftIndex = 0;
         this.rightIndex = array.length - 1;
-        this.mergeIndex = Integer.MAX_VALUE;
-
-        this.stepIndex = 0; // Initialize stepIndex to 0
     }
 
-    public boolean sortStep() {
-        if (stepIndex == 0) {
-            mergeSort(0, array.length - 1); // Start the sorting process
-            stepIndex++; // Move to the next step
-            return true; // Sorting is in progress
-        } else if (stepIndex <= array.length - 1) {
-            merge(0, stepIndex, Math.min(stepIndex * 2, array.length - 1)); // Perform merging
-            stepIndex *= 2;
-            return true; // Merging is in progress
-        } else {
-            stepIndex = 0; // Reset stepIndex when sorting is done
-            return false; // Sorting is done
+    public List<int[]> getSteps() {
+        return steps;
+    }
+
+
+    // Inside your MergeSort class
+    int count = 0;
+    public void mergeSortStep(int left, int right) {
+        if (left < right) {
+            int middle = (left + right) / 2;
+
+            mergeSortStep(left, middle);
+            mergeSortStep(middle + 1, right);
+
+            merge(left, middle, right);
+
+            steps.add(array.clone()); // Store the state after this step
         }
     }
+
 
     public void merge(int left, int middle, int right) {
-        for (int i = left; i <= right; i++) {
-            tempArray[i] = array[i];
+        int leftSize = middle - left + 1;
+        int rightSize = right - middle;
+
+        int[] leftSubarray = new int[leftSize];
+        int[] rightSubarray = new int[rightSize];
+
+        // Copy data to temporary arrays
+        for (int i = 0; i < leftSize; i++) {
+            leftSubarray[i] = array[left + i];
+        }
+        for (int j = 0; j < rightSize; j++) {
+            rightSubarray[j] = array[middle + 1 + j];
         }
 
-        int i = left;
-        int j = middle + 1;
+        int i = 0;
+        int j = 0;
         int k = left;
 
-        while (i <= middle && j <= right) {
-            if (tempArray[i] <= tempArray[j]) {
-                array[k] = tempArray[i];
+        while (i < leftSize && j < rightSize) {
+            if (leftSubarray[i] <= rightSubarray[j]) {
+                array[k] = leftSubarray[i];
                 i++;
             } else {
-                array[k] = tempArray[j];
+                array[k] = rightSubarray[j];
                 j++;
             }
             k++;
         }
 
-        while (i <= middle) {
-            array[k] = tempArray[i];
+        // Copy remaining elements from leftSubarray, if any
+        while (i < leftSize) {
+            array[k] = leftSubarray[i];
             i++;
             k++;
         }
-    }
 
-    public void mergeSort(int left, int right) {
-        if (left < right) {
-            int middle = (left + right) / 2;
-            mergeSort(left, middle);
-            mergeSort(middle + 1, right);
-            merge(left, middle, right);
+        // Copy remaining elements from rightSubarray, if any
+        while (j < rightSize) {
+            array[k] = rightSubarray[j];
+            j++;
+            k++;
         }
+
+
+
     }
 
 }

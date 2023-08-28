@@ -29,13 +29,6 @@ public class InsertionSort {
             array_index++;
         }
 
-        // while (compare_index >= 0 && array[compare_index] > key) {
-        //     array[compare_index + 1] = array[compare_index];
-        //     compare_index--;
-        // }
-
-        // array[compare_index + 1] = key;
-        // array_index++;
 
         startOfIteration = false;
         return array;

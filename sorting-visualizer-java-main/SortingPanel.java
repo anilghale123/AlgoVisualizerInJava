@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
+import java.util.List;
+
 
 public class SortingPanel extends JPanel {
     
@@ -34,18 +36,34 @@ public class SortingPanel extends JPanel {
     private boolean isMerge = false;
 
     private boolean isRunning;
+    JLabel label1 = new JLabel("Sorting");
+    JLabel label2 = new JLabel("Algorithm");
+    JLabel label3 = new JLabel("Visualizer");
 
-    private int mergeLeft = 0;
-    private int mergeRight = 1;
+
 
 
     int i = 0;
 
     public SortingPanel() {
+        setLayout(null);
+
 
         random = new Random();
-        array = new int[300];
+        array = new int[70];
         this.setArray();
+
+        label1.setBounds(450,10,200,50);
+        label1.setFont(new Font("Arial", Font.BOLD,30));
+        label1.setForeground(Color.red);
+
+        label2.setBounds(570,10,200,50);
+        label2.setFont(new Font("Arial", Font.BOLD,30));
+        label2.setForeground(Color.blue);
+
+        label3.setBounds(720,10,200,50);
+        label3.setFont(new Font("Arial", Font.BOLD,30));
+        label3.setForeground(Color.green);
 
         bubbleSort = new BubbleSort(array);
         insertionSort = new InsertionSort(array);
@@ -62,7 +80,7 @@ public class SortingPanel extends JPanel {
         merge = new JButton("merge");
 
         start.setModel(new ButtonModel());
-        start.setBackground(Color.WHITE);
+        start.setBackground(Color.GREEN);
         start.setFocusPainted(false);
         start.setBorderPainted(false);
         start.addActionListener(new ActionListener() { 
@@ -87,12 +105,14 @@ public class SortingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) { 
                 try {
+
                     if (isRunning == false) {
+                        isBubble = true;
                         isInsertion = false;
                         isSelection = false;
                         isQuick = false;
                         isMerge = false;
-                        isBubble = true;
+
                         setButtonBackground();
                         bubble.setBackground(Color.lightGray);
                     }   
@@ -111,11 +131,12 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) { 
                 try {
                     if (isRunning == false) {
+                        isInsertion = true;
                         isMerge = false;
                         isBubble = false;
                         isSelection = false;
                         isQuick = false;
-                        isInsertion = true;
+
                         setButtonBackground();
                         insertion.setBackground(Color.lightGray);
                     } 
@@ -134,11 +155,12 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) { 
                 try {
                     if (isRunning == false) {
+                        isSelection = true;
                         isMerge = false;
                         isBubble = false;
                         isInsertion = false;
                         isQuick = false;
-                        isSelection = true;
+
                         setButtonBackground();
                         selection.setBackground(Color.lightGray);
                     } 
@@ -157,11 +179,12 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) { 
                 try {
                     if (isRunning == false) {
+                        isQuick = true;
                         isMerge = false;
                         isBubble = false;
                         isInsertion = false;
                         isSelection = false;
-                        isQuick = true;
+
                         setButtonBackground();
                         quick.setBackground(Color.lightGray);
                     }   
@@ -181,13 +204,16 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (isRunning == false) {
+
+                        isMerge = true;
                         isBubble = false;
                         isInsertion = false;
                         isSelection = false;
                         isQuick = false;
-                        isMerge = true;
                         setButtonBackground();
                         merge.setBackground(Color.lightGray);
+
+
 
                     }
                 } catch (Exception exception) {
@@ -200,15 +226,15 @@ public class SortingPanel extends JPanel {
 
 
         reset.setModel(new ButtonModel());
-        reset.setBackground(Color.WHITE);
+        reset.setBackground(Color.red);
         reset.setFocusPainted(false);
         reset.setBorderPainted(false);
         reset.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) { 
 
-                reset.setBackground(Color.lightGray);
-                start.setBackground(Color.WHITE);
+                reset.setBackground(Color.red);
+                start.setBackground(Color.green);
 
                 setArray();
 
@@ -226,7 +252,7 @@ public class SortingPanel extends JPanel {
                 // reset quickSort object
                 quickSort.setSP(-1);
                 quickSort.push(0);
-                quickSort.push(299);
+                quickSort.push(69);
                 quickSort.setArrayIndex(Integer.MAX_VALUE);
                 quickSort.setCompareIndex(Integer.MAX_VALUE);
                 quickSort.setPartition(-1);
@@ -243,6 +269,9 @@ public class SortingPanel extends JPanel {
 
 
                 isRunning = false;
+
+
+
                 
                 Timer timer  = new Timer(10, new ActionListener(){
                     @Override
@@ -257,14 +286,31 @@ public class SortingPanel extends JPanel {
             } 
         });
 
-        this.add(start);
+        start.setBounds(0,160,160,30);
+        reset.setBounds(0,190,160,30);
+        insertion.setBounds(0,220,160,30);
+        selection.setBounds(0,250,160,30);
+        bubble.setBounds(0,280,160,30);
+        merge.setBounds(0,310,160,30);
+        quick.setBounds(0,340,160,30);
+
+
+
+
+
+
         this.add(bubble);
         this.add(insertion);
         this.add(selection);
         this.add(quick);
 
         this.add(merge);
+        this.add(start);
         this.add(reset);
+
+        this.add(label1);
+        this.add(label2);
+        this.add(label3);
     }
 
     public void setButtonBackground() {
@@ -300,6 +346,8 @@ public class SortingPanel extends JPanel {
     }
 
     public void animate() throws Exception {
+
+
 
         if (isBubble) {
 
@@ -374,6 +422,7 @@ public class SortingPanel extends JPanel {
                     } else {
                         if (isRunning == true)
                             array = selectionSort.sortOnlyOneItem();
+
                     }
 
                     repaint();
@@ -392,13 +441,13 @@ public class SortingPanel extends JPanel {
                     if (isSorted() || isRunning == false) {
                         quickSort.setSP(-1);
                         quickSort.push(0);
-                        quickSort.push(299);
+                        quickSort.push(69);
                         quickSort.setArrayIndex(Integer.MAX_VALUE);
                         quickSort.setCompareIndex(Integer.MAX_VALUE);
                         quickSort.setPartition(-1);
                         quickSort.setIsPartioning(false);
                         isRunning = false;
-                        start.setBackground(Color.WHITE);
+                        start.setBackground(Color.green);
                         ((Timer) e.getSource()).stop();
                     } else {
                         if (isRunning == true)
@@ -412,48 +461,45 @@ public class SortingPanel extends JPanel {
             quickTimer.start();
         }
 
+
+        // Inside the SortingPanel class
         if (isMerge) {
+            MergeSort mergeSort = new MergeSort(array); // Create a MergeSort instance
+            mergeSort.mergeSortStep(0, array.length - 1); // Perform the sorting
 
-            if (isMerge) {
-                mergeSort.mergeSort(mergeSort.leftIndex,mergeSort.rightIndex); // Start the merge sort process
-                mergeLeft = 0; // Initialize merge indices
-                mergeRight = 1;
-                mergeAnimation(); // Start the animation for merging
-            }
-        }
-    }
+            List<int[]> sortingSteps = mergeSort.getSteps(); // Get the list of steps
 
+             // Keep track of the current step index
 
-    private void mergeAnimation() {
-        Timer timer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (mergeRight < array.length) {
-                    mergeSort.merge(mergeLeft, (mergeLeft + mergeRight) / 2, mergeRight);
-                    mergeRight += 2;
-                } else if (mergeLeft < array.length) {
-                    mergeLeft += 2;
-                    mergeRight = mergeLeft + 1;
-                } else {
-                    ((Timer)e.getSource()).stop();
-                    isRunning = false;
+            Timer mergeTimer = new Timer(100, new ActionListener() {
+                private int stepIndex = 0;
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (stepIndex < sortingSteps.size() && isRunning) {
+                        array = sortingSteps.get(stepIndex); // Get the array for the current step
+                        stepIndex++;
+
+                        repaint(); // Repaint with the current step's array
+                    } else {
+                        isRunning = false;
+                        start.setBackground(Color.WHITE);
+                        ((Timer) e.getSource()).stop();
+                    }
                 }
+            });
 
-                repaint(); // Update GUI after each step
-            }
-        });
+            mergeTimer.start();
+        }
 
-        timer.start(); // Start the animation timer
+
+
+
+
+
+
+
+
     }
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -463,10 +509,10 @@ public class SortingPanel extends JPanel {
         this.setBackground(Color.BLACK);
 
         for (int i = 0; i < array.length; i++) {
-            
+
             g.setColor(Color.BLACK);
-            g.drawRect(i*5, 600 - array[i], 14, array[i]);
-            
+
+
             if (isBubble) {
 
                 if (i == bubbleSort.getCompareIndex() || i == (bubbleSort.getCompareIndex() + 1)) {
@@ -512,7 +558,7 @@ public class SortingPanel extends JPanel {
 
 
             if (isQuick) {
-                
+
                 if (i == quickSort.getArrayIndex()) {
                     g.setColor(Color.MAGENTA);
                 }
@@ -524,11 +570,14 @@ public class SortingPanel extends JPanel {
                 if (i == quickSort.getPartition())
                     g.setColor(Color.GREEN);
             }
-        
-            if (g.getColor() != Color.MAGENTA && g.getColor() != Color.GREEN && g.getColor() != Color.BLUE && g.getColor() != Color.RED)
-                g.setColor(Color.white);
 
-            g.fillRect(i*3, 600 - array[i], 4, array[i]);
+            if (g.getColor() != Color.MAGENTA && g.getColor() != Color.GREEN && g.getColor() != Color.BLUE && g.getColor() != Color.RED)
+                g.setColor(Color.yellow);
+            int xCoordinate = 200 + i * 14;
+
+            g.drawRect(xCoordinate, 600 - array[i], 9, array[i]);
+            g.fillRect(xCoordinate, 600 - array[i], 9, array[i]);
+
         }
     }
 
