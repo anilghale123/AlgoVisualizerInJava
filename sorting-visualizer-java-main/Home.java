@@ -57,7 +57,7 @@ class Home extends JPanel implements ActionListener {
 
     private void playButtonClickSound() {
         try {
-            File soundFile = new File("C:\\Users\\ACER\\Desktop\\algoooss\\AlgoVisualizerInJava\\sorting-visualizer-java-main\\button-09a.wav");
+            File soundFile = new File("C:\\Algorithm Visualizer\\sorting-visualizer-java-main\\out\\production\\sorting-visualizer-java-main\\button-11.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);

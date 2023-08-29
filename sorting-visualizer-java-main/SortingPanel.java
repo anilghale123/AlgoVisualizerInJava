@@ -1,6 +1,8 @@
 import javax.sound.sampled.AudioInputStream;
 import javax.swing.*;
 import javax.sound.sampled.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.io.File;
 
 import java.awt.*;
@@ -31,6 +33,7 @@ public class SortingPanel extends JPanel {
 
     private JButton merge;
 
+
     private boolean isBubble = false;
     private boolean isInsertion = false;
     private boolean isSelection = false;
@@ -43,12 +46,15 @@ public class SortingPanel extends JPanel {
     JLabel label2 = new JLabel("Algorithm");
     JLabel label3 = new JLabel("Visualizer");
 
+    private JSlider speedSlider;
+
+
 
     int i = 0;
 
     private void playButtonClickSound() {
         try {
-            File soundFile = new File("C:\\Users\\ACER\\Desktop\\algoooss\\AlgoVisualizerInJava\\sorting-visualizer-java-main\\button-09a.wav");
+            File soundFile = new File("C:\\Algorithm Visualizer\\sorting-visualizer-java-main\\out\\production\\sorting-visualizer-java-main\\button-11.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
@@ -110,6 +116,7 @@ public class SortingPanel extends JPanel {
                 }
             }
         });
+
 
         bubble.setModel(new ButtonModel());
         bubble.setBackground(Color.WHITE);
@@ -306,6 +313,21 @@ public class SortingPanel extends JPanel {
         quick.setBounds(0, 340, 160, 30);
 
 
+// Inside the SortingPanel constructor
+        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 500); // Adjust the range and initial value as needed
+        speedSlider.setBounds(0, 370, 160, 30);
+        this.add(speedSlider);
+
+        speedSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                 //delay = speedSlider.getValue();
+            }
+        });
+
+
+
+
         this.add(bubble);
         this.add(insertion);
         this.add(selection);
@@ -353,13 +375,14 @@ public class SortingPanel extends JPanel {
     }
 
     public void animate() throws Exception {
+        int delay = speedSlider.getValue();
 
 
         if (isBubble) {
 
             bubbleSort.setCompareIndex(0);
 
-            Timer bubbleTimer = new Timer(10, new ActionListener() {
+            Timer bubbleTimer = new Timer(delay, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
@@ -384,7 +407,7 @@ public class SortingPanel extends JPanel {
 
             insertionSort.setArrayIndex(1);
 
-            Timer insertionTimer = new Timer(10, new ActionListener() {
+            Timer insertionTimer = new Timer(delay, new ActionListener() {
                 @Override
 
                 public void actionPerformed(ActionEvent e) {
@@ -414,7 +437,7 @@ public class SortingPanel extends JPanel {
             selectionSort.setCompareIndex(1);
             selectionSort.setMinIdx(0);
 
-            Timer selectionTimer = new Timer(10, new ActionListener() {
+            Timer selectionTimer = new Timer(delay, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
@@ -440,7 +463,7 @@ public class SortingPanel extends JPanel {
 
         if (isQuick) {
 
-            Timer quickTimer = new Timer(10, new ActionListener() {
+            Timer quickTimer = new Timer(delay, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
@@ -477,7 +500,7 @@ public class SortingPanel extends JPanel {
 
             // Keep track of the current step index
 
-            Timer mergeTimer = new Timer(100, new ActionListener() {
+            Timer mergeTimer = new Timer(delay, new ActionListener() {
                 private int stepIndex = 0;
 
                 @Override
