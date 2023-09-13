@@ -16,11 +16,14 @@ public class Frame extends JFrame {
         cardPanel.setLayout(new CardLayout());
         cardPanel.add(home, "home");
 
+
         setContentPane(cardPanel);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        home.startStarAnimation();
     }
 
     public static void main(String[] args) {

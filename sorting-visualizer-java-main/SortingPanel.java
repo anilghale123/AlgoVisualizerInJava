@@ -7,6 +7,7 @@ import java.io.File;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
 
@@ -51,6 +52,10 @@ public class SortingPanel extends JPanel {
 
     public int tempSize;
 
+    private List<Star> stars = new ArrayList<>();
+    private Timer animationTimer;
+
+
 
 
     int i = 0;
@@ -70,6 +75,8 @@ public class SortingPanel extends JPanel {
 
     public SortingPanel() {
         setLayout(null);
+
+
 
 
         random = new Random();
