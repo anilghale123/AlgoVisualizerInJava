@@ -111,7 +111,7 @@ public class SortingPanel extends JPanel {
         bubbleSort = new BubbleSort(array);
         insertionSort = new InsertionSort(array);
         selectionSort = new SelectionSort(array);
-        quickSort = new QuickSort(array,array.length);
+        quickSort = new QuickSort(array,newSize);
         mergeSort = new MergeSort(array);
 
         start = new JButton("start");
@@ -300,7 +300,7 @@ public class SortingPanel extends JPanel {
                 // reset quickSort object
                 quickSort.setSP(-1);
                 quickSort.push(0);
-                quickSort.push(array.length - 1);
+                quickSort.push(newSize - 1);
                 quickSort.setArrayIndex(Integer.MAX_VALUE);
                 quickSort.setCompareIndex(Integer.MAX_VALUE);
                 quickSort.setPartition(-1);
@@ -403,6 +403,8 @@ public class SortingPanel extends JPanel {
         selection.setBackground(Color.WHITE);
         quick.setBackground(Color.WHITE);
         merge.setBackground(Color.WHITE);
+        start.setBackground(Color.green);
+        reset.setBackground(Color.red);
 
     }
 
@@ -520,7 +522,7 @@ public class SortingPanel extends JPanel {
                     if (isSorted() || isRunning == false) {
                         quickSort.setSP(-1);
                         quickSort.push(0);
-                        quickSort.push(array.length - 1);
+                        quickSort.push(newSize - 1);
                         quickSort.setArrayIndex(Integer.MAX_VALUE);
                         quickSort.setCompareIndex(Integer.MAX_VALUE);
                         quickSort.setPartition(-1);
@@ -529,6 +531,7 @@ public class SortingPanel extends JPanel {
                         start.setBackground(Color.green);
                         ((Timer) e.getSource()).stop();
                     } else {
+
                         if (isRunning == true)
                             array = quickSort.sortOnlyOneItem();
                     }
