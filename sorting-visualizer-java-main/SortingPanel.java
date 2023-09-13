@@ -47,10 +47,14 @@ public class SortingPanel extends JPanel {
     JLabel label3 = new JLabel("Visualizer");
 
     private JSlider speedSlider;
+    private JSlider sizeSlider;
+
+    public int tempSize;
 
 
 
     int i = 0;
+    int newSize = 10;
 
     private void playButtonClickSound() {
         try {
@@ -69,8 +73,28 @@ public class SortingPanel extends JPanel {
 
 
         random = new Random();
-        array = new int[70];
-        this.setArray();
+        array = new int[newSize];
+
+        // Create the sizeSlider
+        sizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, array.length);
+        sizeSlider.setBounds(0, 400, 160, 30);
+        sizeSlider.setMajorTickSpacing(10);
+        sizeSlider.setPaintTicks(true);
+
+        // Add a ChangeListener to update the array size
+        sizeSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                 newSize = sizeSlider.getValue();
+                setArraySize(newSize);
+                repaint();
+            }
+        });
+
+
+
+
+        this.setArray(newSize);
 
         label1.setBounds(450, 10, 200, 50);
         label1.setFont(new Font("Arial", Font.BOLD, 30));
@@ -87,7 +111,7 @@ public class SortingPanel extends JPanel {
         bubbleSort = new BubbleSort(array);
         insertionSort = new InsertionSort(array);
         selectionSort = new SelectionSort(array);
-        quickSort = new QuickSort(array);
+        quickSort = new QuickSort(array,array.length);
         mergeSort = new MergeSort(array);
 
         start = new JButton("start");
@@ -260,7 +284,7 @@ public class SortingPanel extends JPanel {
                 reset.setBackground(Color.red);
                 start.setBackground(Color.green);
 
-                setArray();
+                setArray(newSize);
 
                 // reset bubbleSort object
                 bubbleSort.setCompareIndex(Integer.MAX_VALUE);
@@ -276,7 +300,7 @@ public class SortingPanel extends JPanel {
                 // reset quickSort object
                 quickSort.setSP(-1);
                 quickSort.push(0);
-                quickSort.push(69);
+                quickSort.push(array.length - 1);
                 quickSort.setArrayIndex(Integer.MAX_VALUE);
                 quickSort.setCompareIndex(Integer.MAX_VALUE);
                 quickSort.setPartition(-1);
@@ -313,9 +337,13 @@ public class SortingPanel extends JPanel {
         quick.setBounds(0, 340, 160, 30);
 
 
-// Inside the SortingPanel constructor
-        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 500); // Adjust the range and initial value as needed
+
+
+// Create the JSlider
+         speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 500); // Adjust the range and initial value as needed
+// Set the bounds for the slider
         speedSlider.setBounds(0, 370, 160, 30);
+
         this.add(speedSlider);
 
         speedSlider.addChangeListener(new ChangeListener() {
@@ -324,6 +352,7 @@ public class SortingPanel extends JPanel {
                  //delay = speedSlider.getValue();
             }
         });
+
 
 
 
@@ -340,7 +369,32 @@ public class SortingPanel extends JPanel {
         this.add(label1);
         this.add(label2);
         this.add(label3);
+
+
+        this.add(sizeSlider);
     }
+
+
+    // Modify setArray method to accept the array size as a parameter
+    public void setArray(int newSize) {
+        array = new int[newSize];
+        tempSize = newSize;
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(510) + 40;
+        }
+    }
+
+    // Add a method to set the array size
+    public void setArraySize(int newSize) {
+        setArray(newSize);
+        bubbleSort.setArray(array);
+        insertionSort.setArray(array);
+        selectionSort.setArray(array);
+        quickSort.setArray(array, newSize); // Pass the array size to quickSort
+        mergeSort.setArray(array);
+    }
+
+
 
     public void setButtonBackground() {
 
@@ -356,11 +410,7 @@ public class SortingPanel extends JPanel {
         return this.array;
     }
 
-    public void setArray() {
-        for (int i = 0; i < this.array.length; i++) {
-            this.array[i] = random.nextInt(510) + 40;
-        }
-    }
+
 
 
     public boolean isSorted() {
@@ -470,7 +520,7 @@ public class SortingPanel extends JPanel {
                     if (isSorted() || isRunning == false) {
                         quickSort.setSP(-1);
                         quickSort.push(0);
-                        quickSort.push(69);
+                        quickSort.push(array.length - 1);
                         quickSort.setArrayIndex(Integer.MAX_VALUE);
                         quickSort.setCompareIndex(Integer.MAX_VALUE);
                         quickSort.setPartition(-1);
@@ -527,14 +577,14 @@ public class SortingPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         this.setBackground(Color.BLACK);
 
+        Font numberFont = new Font("Arial", Font.BOLD, 12); // Define a font for the numbers
+        g.setFont(numberFont);
+
         for (int i = 0; i < array.length; i++) {
-
             g.setColor(Color.BLACK);
-
 
             if (isBubble) {
 
@@ -591,15 +641,31 @@ public class SortingPanel extends JPanel {
                     g.setColor(Color.GREEN);
             }
 
-            if (g.getColor() != Color.MAGENTA && g.getColor() != Color.GREEN && g.getColor() != Color.BLUE && g.getColor() != Color.RED)
-                g.setColor(Color.yellow);
-            int xCoordinate = 200 + i * 14;
 
-            g.drawRect(xCoordinate, 600 - array[i], 9, array[i]);
-            g.fillRect(xCoordinate, 600 - array[i], 9, array[i]);
+            if (g.getColor() != Color.MAGENTA && g.getColor() != Color.GREEN && g.getColor() != Color.BLUE && g.getColor() != Color.RED)
+                g.setColor(Color.YELLOW);
+
+            int xCoordinate = 200 + i * 14;
+            int rectWidth = 9;
+            int rectHeight = array[i];
+
+            // Draw the rectangle
+            g.drawRect(xCoordinate, 600 - rectHeight, rectWidth, rectHeight);
+            g.fillRect(xCoordinate, 600 - rectHeight, rectWidth, rectHeight);
+
+            // Draw the number within the rectangle at the bottom
+            String numberText = String.valueOf(array[i]);
+            FontMetrics fm = g.getFontMetrics();
+            int textWidth = fm.stringWidth(numberText);
+            int textHeight = fm.getHeight();
+            int textX = xCoordinate + (rectWidth - textWidth) / 2;
+            int textY = 556 - textHeight / 2 + textHeight; // Align the text to the bottom of the rectangle
+            g.setColor(Color.black); // Set a bright color for numbers
+            g.drawString(numberText, textX, textY);
 
         }
     }
+
 
 
 }

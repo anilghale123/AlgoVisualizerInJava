@@ -31,7 +31,7 @@ public class SelectionSort {
 
         compare_index++;
 
-        if (compare_index >= 70) {
+        if (compare_index >= array.length) {
             swap(array, min_idx, array_index);
             array_index++;
             compare_index = array_index + 1;

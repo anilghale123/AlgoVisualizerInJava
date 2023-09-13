@@ -4,18 +4,19 @@ public class QuickSort {
     private int low, high, sp, array_index, compare_index, x, partition;
     private boolean isPartioning = false;
 
-    public QuickSort(int[] array) {
+    public QuickSort(int[] array,int arraySize) {
         this.array = array;
-        stack = new int[69];
+        this.stack = new int[arraySize];
+
         low = 0;
-        high = 69;
+        high = arraySize - 1;
         array_index = 0;
         compare_index = 0;
         x = 0;
         partition = -1;
         sp = -1;
         stack[++sp] = 0;
-        stack[++sp] = 69;
+        stack[++sp] = array.length - 1;
     }
 
     public void swap(int arr[], int i, int j) {
@@ -87,8 +88,9 @@ public class QuickSort {
         return array;
     }
 
-    public void setArray(int[] array) {
+    public void setArray(int[] array, int arraySize) {
         this.array = array;
+        this.stack = new int[arraySize - 1];
     }
 
     public int getLow() {

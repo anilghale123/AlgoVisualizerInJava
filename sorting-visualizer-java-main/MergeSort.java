@@ -27,6 +27,15 @@ public class MergeSort {
     }
 
 
+    public void setArray(int[] array) {
+        this.array = array;
+        this.steps.clear();
+        this.steps.add(array.clone());
+        this.leftIndex = 0;
+        this.rightIndex = array.length - 1;
+    }
+
+
     // Inside your MergeSort class
     int count = 0;
     public void mergeSortStep(int left, int right) {
