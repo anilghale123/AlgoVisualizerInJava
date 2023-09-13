@@ -76,7 +76,7 @@ public class SortingPanel extends JPanel {
         array = new int[newSize];
 
         // Create the sizeSlider
-        sizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, array.length);
+        sizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 70, array.length);
         sizeSlider.setBounds(0, 400, 160, 30);
         sizeSlider.setMajorTickSpacing(10);
         sizeSlider.setPaintTicks(true);
@@ -330,8 +330,8 @@ public class SortingPanel extends JPanel {
 
         start.setBounds(0, 160, 160, 30);
         reset.setBounds(0, 190, 160, 30);
-        insertion.setBounds(0, 220, 160, 30);
-        selection.setBounds(0, 250, 160, 30);
+        selection.setBounds(0, 220, 160, 30);
+        insertion.setBounds(0, 250, 160, 30);
         bubble.setBounds(0, 280, 160, 30);
         merge.setBounds(0, 310, 160, 30);
         quick.setBounds(0, 340, 160, 30);
