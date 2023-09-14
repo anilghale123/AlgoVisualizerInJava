@@ -59,6 +59,9 @@ public class SortingPanel extends JPanel {
     private boolean bubblePressed = false;
     private boolean startPressed = false;
 
+    private JLabel speed;
+    private JLabel size;
+
 
     private void playButtonClickSound() {
         try {
@@ -96,10 +99,16 @@ public class SortingPanel extends JPanel {
 
         // Create the sizeSlider
         sizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 70, array.length);
-        sizeSlider.setBounds(5, 400, 160, 30);
+        sizeSlider.setBounds(50, 35, 160, 30);
         sizeSlider.setMajorTickSpacing(10);
         sizeSlider.setPaintTicks(true);
-        sizeSlider.setBorder(BorderFactory.createLineBorder(Color.darkGray,2));
+       // sizeSlider.setBorder(BorderFactory.createLineBorder(Color.darkGray,2));
+        sizeSlider.setBackground(Color.black);
+
+        size = new JLabel("array size");
+        size.setBounds(65,5,160,30);
+        size.setForeground(Color.white);
+        size.setFont(new Font("Arial", Font.BOLD,20));
 
         // Add a ChangeListener to update the array size
         sizeSlider.addChangeListener(new ChangeListener() {
@@ -168,7 +177,7 @@ public class SortingPanel extends JPanel {
 
 
         bubble.setModel(new ButtonModel());
-        bubble.setBackground(Color.WHITE);
+        bubble.setBackground(Color.black);
         bubble.setFocusPainted(false);
         bubble.setBorderPainted(false);
         bubble.addActionListener(new ActionListener() {
@@ -185,7 +194,7 @@ public class SortingPanel extends JPanel {
                         isMerge = false;
 
                         setButtonBackground();
-                        bubble.setBackground(Color.lightGray);
+                        bubble.setBackground(Color.darkGray);
                         playButtonClickSound();
 
                     }
@@ -196,7 +205,7 @@ public class SortingPanel extends JPanel {
         });
 
         insertion.setModel(new ButtonModel());
-        insertion.setBackground(Color.WHITE);
+        insertion.setBackground(Color.black);
         insertion.setFocusPainted(false);
         insertion.setBorderPainted(false);
         insertion.addActionListener(new ActionListener() {
@@ -211,7 +220,7 @@ public class SortingPanel extends JPanel {
                         isQuick = false;
 
                         setButtonBackground();
-                        insertion.setBackground(Color.lightGray);
+                        insertion.setBackground(Color.darkGray);
                         playButtonClickSound();
                     }
                 } catch (Exception exception) {
@@ -221,7 +230,7 @@ public class SortingPanel extends JPanel {
         });
 
         selection.setModel(new ButtonModel());
-        selection.setBackground(Color.WHITE);
+        selection.setBackground(Color.black);
         selection.setFocusPainted(false);
         selection.setBorderPainted(false);
         selection.addActionListener(new ActionListener() {
@@ -236,7 +245,7 @@ public class SortingPanel extends JPanel {
                         isQuick = false;
 
                         setButtonBackground();
-                        selection.setBackground(Color.lightGray);
+                        selection.setBackground(Color.DARK_GRAY);
                         playButtonClickSound();
                     }
                 } catch (Exception exception) {
@@ -246,7 +255,7 @@ public class SortingPanel extends JPanel {
         });
 
         quick.setModel(new ButtonModel());
-        quick.setBackground(Color.WHITE);
+        quick.setBackground(Color.black);
         quick.setFocusPainted(false);
         quick.setBorderPainted(false);
         quick.addActionListener(new ActionListener() {
@@ -261,7 +270,7 @@ public class SortingPanel extends JPanel {
                         isSelection = false;
 
                         setButtonBackground();
-                        quick.setBackground(Color.lightGray);
+                        quick.setBackground(Color.darkGray);
                         playButtonClickSound();
                     }
                 } catch (Exception exception) {
@@ -272,7 +281,7 @@ public class SortingPanel extends JPanel {
 
 
         merge.setModel(new ButtonModel());
-        merge.setBackground(Color.WHITE);
+        merge.setBackground(Color.black);
         merge.setFocusPainted(false);
         merge.setBorderPainted(false);
         merge.addActionListener(new ActionListener() {
@@ -287,7 +296,7 @@ public class SortingPanel extends JPanel {
                         isSelection = false;
                         isQuick = false;
                         setButtonBackground();
-                        merge.setBackground(Color.lightGray);
+                        merge.setBackground(Color.darkGray);
                         playButtonClickSound();
 
 
@@ -359,12 +368,24 @@ public class SortingPanel extends JPanel {
         });
 
         start.setBounds(5, 160, 160, 30);
-        reset.setBounds(5, 190, 160, 30);
-        selection.setBounds(5, 220, 160, 30);
-        insertion.setBounds(5, 250, 160, 30);
-        bubble.setBounds(5, 280, 160, 30);
-        merge.setBounds(5, 310, 160, 30);
-        quick.setBounds(5, 340, 160, 30);
+        reset.setBounds(5, 192, 160, 30);
+        selection.setBounds(5, 227, 160, 30);
+        insertion.setBounds(5, 256, 160, 30);
+        bubble.setBounds(5, 285, 160, 30);
+        merge.setBounds(5, 315, 160, 30);
+        quick.setBounds(5, 347, 160, 30);
+
+        start.setFont(new Font("Arial",Font.BOLD,18));
+        start.setForeground(Color.black);
+
+        reset.setFont(new Font("Arial",Font.BOLD,18));
+        //reset.setForeground(Color.WHITE);
+
+        selection.setFont(new Font("Arial",Font.BOLD,18));
+        insertion.setFont(new Font("Arial",Font.BOLD,18));
+        bubble.setFont(new Font("Arial",Font.BOLD,18));
+        merge.setFont(new Font("Arial",Font.BOLD,18));
+        quick.setFont(new Font("Arial",Font.BOLD,18));
 
 
         start.setBorderPainted(true);
@@ -378,23 +399,40 @@ public class SortingPanel extends JPanel {
 
 
         // Set the line border with a thickness of 5 pixels
-        start.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-       reset.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        start.setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
+       reset.setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
 
-        insertion.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-        selection.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-        bubble.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-        merge.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-        quick.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        insertion.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+        insertion.setForeground(Color.white);
+
+        selection.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+        selection.setForeground(Color.white);
+
+        bubble.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+        bubble.setForeground(Color.white);
+
+        merge.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+        merge.setForeground(Color.white);
+
+        quick.setBorder(BorderFactory.createLineBorder(Color.red, 1));
+        quick.setForeground(Color.white);
+
 
 
 
 // Create the JSlider
          speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 500); // Adjust the range and initial value as needed
 // Set the bounds for the slider
-        speedSlider.setBounds(5, 370, 160, 30);
+        speedSlider.setBounds(255, 35, 160, 30);
+        speedSlider.setBackground(Color.black);
 
-        speedSlider.setBorder(BorderFactory.createLineBorder(Color.darkGray,2));
+
+        speed = new JLabel("speed");
+        speed.setBounds(265,5,160,30);
+        speed.setForeground(Color.white);
+        speed.setFont(new Font("Arial", Font.BOLD,20));
+
+       // speedSlider.setBorder(BorderFactory.createLineBorder(Color.red,1));
 
         this.add(speedSlider);
 
@@ -424,15 +462,17 @@ public class SortingPanel extends JPanel {
 
 
         this.add(sizeSlider);
+
+        this.add(size);
+        this.add(speed);
     }
 
 
     // Modify setArray method to accept the array size as a parameter
     public void setArray(int newSize) {
         array = new int[newSize];
-
         for (int i = 0; i < array.length; i++) {
-            array[i] = random.nextInt(510) + 40;
+            array[i] = random.nextInt(480) + 40;
         }
     }
 
@@ -450,11 +490,11 @@ public class SortingPanel extends JPanel {
 
     public void setButtonBackground() {
 
-        bubble.setBackground(Color.white);
-        insertion.setBackground(Color.WHITE);
-        selection.setBackground(Color.WHITE);
-        quick.setBackground(Color.WHITE);
-        merge.setBackground(Color.WHITE);
+        bubble.setBackground(Color.black);
+        insertion.setBackground(Color.black);
+        selection.setBackground(Color.black);
+        quick.setBackground(Color.black);
+        merge.setBackground(Color.black);
         start.setBackground(Color.green);
         reset.setBackground(Color.red);
 
