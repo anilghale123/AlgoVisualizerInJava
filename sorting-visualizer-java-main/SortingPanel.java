@@ -62,6 +62,8 @@ public class SortingPanel extends JPanel {
     private JLabel speed;
     private JLabel size;
 
+    private int delay;
+
 
     private void playButtonClickSound() {
         try {
@@ -117,6 +119,30 @@ public class SortingPanel extends JPanel {
                  newSize = sizeSlider.getValue();
                 setArraySize(newSize);
                 repaint();
+            }
+        });
+
+
+
+        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 500); // Adjust the range and initial value as needed
+// Set the bounds for the slider
+        speedSlider.setBounds(255, 35, 160, 30);
+        speedSlider.setBackground(Color.black);
+
+
+        speed = new JLabel("speed");
+        speed.setBounds(265,9,160,30);
+        speed.setForeground(Color.white);
+        speed.setFont(new Font("Arial", Font.BOLD,20));
+
+        // speedSlider.setBorder(BorderFactory.createLineBorder(Color.red,1));
+
+
+
+        speedSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                delay = speedSlider.getValue(); // Update the delay variable with the slider's value
             }
         });
 
@@ -420,28 +446,9 @@ public class SortingPanel extends JPanel {
 
 
 
-// Create the JSlider
-         speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 500); // Adjust the range and initial value as needed
-// Set the bounds for the slider
-        speedSlider.setBounds(255, 35, 160, 30);
-        speedSlider.setBackground(Color.black);
 
 
-        speed = new JLabel("speed");
-        speed.setBounds(265,5,160,30);
-        speed.setForeground(Color.white);
-        speed.setFont(new Font("Arial", Font.BOLD,20));
 
-       // speedSlider.setBorder(BorderFactory.createLineBorder(Color.red,1));
-
-        this.add(speedSlider);
-
-        speedSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                 //delay = speedSlider.getValue();
-            }
-        });
 
 
 
@@ -465,6 +472,7 @@ public class SortingPanel extends JPanel {
 
         this.add(size);
         this.add(speed);
+        this.add(speedSlider);
     }
 
 
@@ -519,14 +527,14 @@ public class SortingPanel extends JPanel {
     }
 
     public void animate() throws Exception {
-        int delay = speedSlider.getValue();
+
 
 
         if (isBubble) {
 
             bubbleSort.setCompareIndex(0);
 
-            Timer bubbleTimer = new Timer(delay, new ActionListener() {
+            Timer bubbleTimer = new Timer(speedSlider.getMaximum() - delay, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
@@ -561,7 +569,7 @@ public class SortingPanel extends JPanel {
 
             insertionSort.setArrayIndex(1);
 
-            Timer insertionTimer = new Timer(delay, new ActionListener() {
+            Timer insertionTimer = new Timer(speedSlider.getMaximum() - delay, new ActionListener() {
                 @Override
 
                 public void actionPerformed(ActionEvent e) {
@@ -591,7 +599,7 @@ public class SortingPanel extends JPanel {
             selectionSort.setCompareIndex(1);
             selectionSort.setMinIdx(0);
 
-            Timer selectionTimer = new Timer(delay, new ActionListener() {
+            Timer selectionTimer = new Timer(speedSlider.getMaximum() - delay, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
@@ -617,7 +625,7 @@ public class SortingPanel extends JPanel {
 
         if (isQuick) {
 
-            Timer quickTimer = new Timer(delay, new ActionListener() {
+            Timer quickTimer = new Timer(speedSlider.getMaximum() - delay, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
@@ -655,7 +663,7 @@ public class SortingPanel extends JPanel {
 
             // Keep track of the current step index
 
-            Timer mergeTimer = new Timer(delay, new ActionListener() {
+            Timer mergeTimer = new Timer(speedSlider.getMaximum() - delay, new ActionListener() {
                 private int stepIndex = 0;
 
                 @Override
