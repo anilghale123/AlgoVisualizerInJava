@@ -57,6 +57,10 @@ public class SortingPanel extends JPanel {
     Clip currentClip = null;
 
     private boolean bubblePressed = false;
+    private boolean selectionPressed = false;
+    private boolean insertionPressed = false;
+    private boolean mergePressed = false;
+    private boolean quickPressed = false;
     private boolean startPressed = false;
 
     private JLabel speed;
@@ -157,7 +161,7 @@ public class SortingPanel extends JPanel {
 
         label2.setBounds(570, 10, 200, 50);
         label2.setFont(new Font("Arial", Font.BOLD, 30));
-        label2.setForeground(Color.blue);
+        label2.setForeground(Color.yellow);
 
         label3.setBounds(720, 10, 200, 50);
         label3.setFont(new Font("Arial", Font.BOLD, 30));
@@ -194,6 +198,29 @@ public class SortingPanel extends JPanel {
                     {
                         playMusic("C:\\Users\\ghale\\Downloads\\sounds\\bubble.wav");
                     }
+
+                    if (quickPressed == true)
+                    {
+                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\quick.wav");
+                    }
+
+                    if (insertionPressed == true)
+                    {
+                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\insert.wav");
+                    }
+
+                    if (mergePressed == true)
+                    {
+                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\merge.wav");
+                    }
+
+                    if (selectionPressed == true)
+                    {
+                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\quick.wav");
+                    }
+
+
+
                     playButtonClickSound();
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -213,6 +240,12 @@ public class SortingPanel extends JPanel {
 
                     if (isRunning == false) {
                         bubblePressed = true;
+                        insertionPressed = false;
+                        selectionPressed = false;
+                        quickPressed = false;
+                        mergePressed = false;
+
+
                         isBubble = true;
                         isInsertion = false;
                         isSelection = false;
@@ -239,6 +272,13 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (isRunning == false) {
+
+                        bubblePressed = false;
+                        insertionPressed = true;
+                        selectionPressed = false;
+                        quickPressed = false;
+                        mergePressed = false;
+
                         isInsertion = true;
                         isMerge = false;
                         isBubble = false;
@@ -264,6 +304,12 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (isRunning == false) {
+                        bubblePressed = false;
+                        insertionPressed = false;
+                        selectionPressed = true;
+                        quickPressed = false;
+                        mergePressed = false;
+
                         isSelection = true;
                         isMerge = false;
                         isBubble = false;
@@ -289,6 +335,14 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (isRunning == false) {
+
+                        bubblePressed = false;
+                        insertionPressed = false;
+                        selectionPressed = false;
+                        quickPressed = true;
+                        mergePressed = false;
+
+
                         isQuick = true;
                         isMerge = false;
                         isBubble = false;
@@ -315,6 +369,12 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (isRunning == false) {
+
+                        bubblePressed = false;
+                        insertionPressed = false;
+                        selectionPressed = false;
+                        quickPressed = false;
+                        mergePressed = true;
 
                         isMerge = true;
                         isBubble = false;
@@ -581,6 +641,10 @@ public class SortingPanel extends JPanel {
                         isRunning = false;
                         start.setBackground(Color.WHITE);
                         ((Timer) e.getSource()).stop();
+
+                        if (currentClip != null && currentClip.isActive()) {
+                            currentClip.stop(); // stops the currently playing music
+                        }
                     } else {
                         if (isRunning == true)
                             array = insertionSort.sortOnlyOneItem();
@@ -610,6 +674,10 @@ public class SortingPanel extends JPanel {
                         isRunning = false;
                         start.setBackground(Color.WHITE);
                         ((Timer) e.getSource()).stop();
+
+                        if (currentClip != null && currentClip.isActive()) {
+                            currentClip.stop(); // stops the currently playing music
+                        }
                     } else {
                         if (isRunning == true)
                             array = selectionSort.sortOnlyOneItem();
@@ -640,6 +708,10 @@ public class SortingPanel extends JPanel {
                         isRunning = false;
                         start.setBackground(Color.green);
                         ((Timer) e.getSource()).stop();
+
+                        if (currentClip != null && currentClip.isActive()) {
+                            currentClip.stop(); // stops the currently playing music
+                        }
                     } else {
 
                         if (isRunning == true)
@@ -677,6 +749,10 @@ public class SortingPanel extends JPanel {
                         isRunning = false;
                         start.setBackground(Color.WHITE);
                         ((Timer) e.getSource()).stop();
+
+                        if (currentClip != null && currentClip.isActive()) {
+                            currentClip.stop(); // stops the currently playing music
+                        }
                     }
                 }
             });
