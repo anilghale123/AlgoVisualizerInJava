@@ -54,6 +54,12 @@ public class SortingPanel extends JPanel {
     int i = 0;
     int newSize = 10;
 
+    Clip currentClip = null;
+
+    private boolean bubblePressed = false;
+    private boolean startPressed = false;
+
+
     private void playButtonClickSound() {
         try {
             File soundFile = new File("C:\\Algorithm Visualizer\\sorting-visualizer-java-main\\out\\production\\sorting-visualizer-java-main\\button-11.wav");
@@ -65,6 +71,23 @@ public class SortingPanel extends JPanel {
             e.printStackTrace();
         }
     }
+
+    public void playMusic(String filename) {
+        try {
+            if (currentClip != null && currentClip.isActive()) {
+                currentClip.stop(); // stops the currently playing music
+            }
+
+            File soundFile = new File(filename);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            currentClip = AudioSystem.getClip(); // updates current clip
+            currentClip.open(audioInputStream);
+            currentClip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public SortingPanel() {
         setLayout(null);
@@ -129,8 +152,13 @@ public class SortingPanel extends JPanel {
                 try {
                     start.setBackground(Color.lightGray);
                     if (isRunning == false)
+                        startPressed = true;
                         isRunning = true;
                     animate();
+                    if (bubblePressed == true)
+                    {
+                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\bubble.wav");
+                    }
                     playButtonClickSound();
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -149,6 +177,7 @@ public class SortingPanel extends JPanel {
                 try {
 
                     if (isRunning == false) {
+                        bubblePressed = true;
                         isBubble = true;
                         isInsertion = false;
                         isSelection = false;
@@ -158,6 +187,7 @@ public class SortingPanel extends JPanel {
                         setButtonBackground();
                         bubble.setBackground(Color.lightGray);
                         playButtonClickSound();
+
                     }
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -277,6 +307,9 @@ public class SortingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 playButtonClickSound();
+                if (currentClip != null && currentClip.isActive()) {
+                    currentClip.stop(); // stops the currently playing music
+                }
 
                 reset.setBackground(Color.red);
                 start.setBackground(Color.green);
@@ -462,13 +495,23 @@ public class SortingPanel extends JPanel {
                         isRunning = false;
                         start.setBackground(Color.WHITE);
                         ((Timer) e.getSource()).stop();
-                    } else {
-                        if (isRunning == true)
-                            array = bubbleSort.sortOnlyOneItem();
-                    }
 
-                    repaint();
-                }
+                        if (currentClip != null && currentClip.isActive()) {
+                            currentClip.stop(); // stops the currently playing music
+                        }
+                    } else {
+
+
+
+                        if (isRunning == true) {
+
+
+                            array = bubbleSort.sortOnlyOneItem();
+                        }
+                        }
+
+                        repaint();
+                    }
             });
 
             bubbleTimer.start();
