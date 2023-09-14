@@ -38,11 +38,12 @@ class Home extends JPanel implements ActionListener {
         label1.setBounds(270, 150, 800, 50);
         label2.setBounds(200, 350, 1300, 100);
 
-        start.setBounds(500, 500, 100, 30);
+        start.setBounds(500, 500, 120, 30);
         start.addActionListener(this);
         start.setBackground(Color.green);
         start.setFocusable(false);
-        
+        start.setFont(new Font("Arial", Font.BOLD,13));
+
 
         // Create a timer for the stardust animation
         animationTimer = new Timer(50, new ActionListener() {

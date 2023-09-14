@@ -51,13 +51,6 @@ public class SortingPanel extends JPanel {
     private JSlider sizeSlider;
 
     public int tempSize;
-
-    private List<Star> stars = new ArrayList<>();
-    private Timer animationTimer;
-
-
-
-
     int i = 0;
     int newSize = 10;
 
@@ -75,18 +68,15 @@ public class SortingPanel extends JPanel {
 
     public SortingPanel() {
         setLayout(null);
-
-
-
-
         random = new Random();
         array = new int[newSize];
 
         // Create the sizeSlider
         sizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 70, array.length);
-        sizeSlider.setBounds(0, 400, 160, 30);
+        sizeSlider.setBounds(5, 400, 160, 30);
         sizeSlider.setMajorTickSpacing(10);
         sizeSlider.setPaintTicks(true);
+        sizeSlider.setBorder(BorderFactory.createLineBorder(Color.darkGray,2));
 
         // Add a ChangeListener to update the array size
         sizeSlider.addChangeListener(new ChangeListener() {
@@ -335,21 +325,43 @@ public class SortingPanel extends JPanel {
             }
         });
 
-        start.setBounds(0, 160, 160, 30);
-        reset.setBounds(0, 190, 160, 30);
-        selection.setBounds(0, 220, 160, 30);
-        insertion.setBounds(0, 250, 160, 30);
-        bubble.setBounds(0, 280, 160, 30);
-        merge.setBounds(0, 310, 160, 30);
-        quick.setBounds(0, 340, 160, 30);
+        start.setBounds(5, 160, 160, 30);
+        reset.setBounds(5, 190, 160, 30);
+        selection.setBounds(5, 220, 160, 30);
+        insertion.setBounds(5, 250, 160, 30);
+        bubble.setBounds(5, 280, 160, 30);
+        merge.setBounds(5, 310, 160, 30);
+        quick.setBounds(5, 340, 160, 30);
 
+
+        start.setBorderPainted(true);
+        reset.setBorderPainted(true);
+        selection.setBorderPainted(true);
+        bubble.setBorderPainted(true);
+        merge.setBorderPainted(true);
+        quick.setBorderPainted(true);
+        insertion.setBorderPainted(true);
+
+
+
+        // Set the line border with a thickness of 5 pixels
+        start.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+       reset.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+
+        insertion.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        selection.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        bubble.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        merge.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        quick.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
 
 
 
 // Create the JSlider
          speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 500); // Adjust the range and initial value as needed
 // Set the bounds for the slider
-        speedSlider.setBounds(0, 370, 160, 30);
+        speedSlider.setBounds(5, 370, 160, 30);
+
+        speedSlider.setBorder(BorderFactory.createLineBorder(Color.darkGray,2));
 
         this.add(speedSlider);
 
@@ -385,7 +397,7 @@ public class SortingPanel extends JPanel {
     // Modify setArray method to accept the array size as a parameter
     public void setArray(int newSize) {
         array = new int[newSize];
-        tempSize = newSize;
+
         for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(510) + 40;
         }
@@ -405,7 +417,7 @@ public class SortingPanel extends JPanel {
 
     public void setButtonBackground() {
 
-        bubble.setBackground(Color.WHITE);
+        bubble.setBackground(Color.white);
         insertion.setBackground(Color.WHITE);
         selection.setBackground(Color.WHITE);
         quick.setBackground(Color.WHITE);
