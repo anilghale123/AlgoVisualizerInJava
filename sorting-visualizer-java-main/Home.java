@@ -20,6 +20,8 @@ class Home extends JPanel implements ActionListener {
     JLabel label1 = new JLabel("\"An algorithm must be seen to be believed.\"");
     JLabel label2 = new JLabel("<html>This application helps you to understand sorting algorithms <br>better by visualizing them.</html>");
 
+     private Clip currentClip = null;
+
     public Home(JPanel cardPanel) {
         this.cardPanel = cardPanel; // Store the reference to the cardPanel
         setLayout(null);
@@ -43,6 +45,17 @@ class Home extends JPanel implements ActionListener {
         start.setBackground(Color.green);
         start.setFocusable(false);
         start.setFont(new Font("Arial", Font.BOLD,13));
+
+        try {
+            currentClip = null;
+            File soundFile = new File("C:\\Users\\ghale\\Downloads\\sounds\\yourName.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+            ex.printStackTrace();
+        }
 
 
         // Create a timer for the stardust animation
@@ -118,6 +131,9 @@ class Home extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == start) {
+            if (currentClip != null && currentClip.isActive()) {
+                currentClip.stop(); // stops the currently playing music
+            }
             playButtonClickSound(); // Play sound when the "Get Started" button is clicked
 
             // Initialize the SortingPanel and add it to the cardPanel
@@ -125,6 +141,9 @@ class Home extends JPanel implements ActionListener {
             cardPanel.add(sortingPanel, "sortingPanel");
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "sortingPanel");
+
+
+
 
             // Initialize stardust after adding SortingPanel
 
