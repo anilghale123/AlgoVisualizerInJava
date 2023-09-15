@@ -68,6 +68,8 @@ public class SortingPanel extends JPanel {
 
     private int delay;
 
+    private JLabel sortLabel;
+
 
     private void playButtonClickSound() {
         try {
@@ -96,6 +98,24 @@ public class SortingPanel extends JPanel {
             e.printStackTrace();
         }
     }
+    public void setLabel(String label) {
+        // Check if there is an existing sortLabel, and remove it if it exists
+        if (sortLabel != null) {
+            this.remove(sortLabel);
+        }
+
+        sortLabel = new JLabel(label);
+        sortLabel.setBounds(500, 40, 300, 50);
+        sortLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        sortLabel.setForeground(Color.white);
+
+        this.add(sortLabel);
+
+        // Ensure that the changes are immediately reflected
+        revalidate();
+        repaint();
+    }
+
 
 
     public SortingPanel() {
@@ -105,7 +125,7 @@ public class SortingPanel extends JPanel {
 
         // Create the sizeSlider
         sizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 70, array.length);
-        sizeSlider.setBounds(50, 35, 160, 30);
+        sizeSlider.setBounds(50, 40, 160, 30);
         sizeSlider.setMajorTickSpacing(10);
         sizeSlider.setPaintTicks(true);
        // sizeSlider.setBorder(BorderFactory.createLineBorder(Color.darkGray,2));
@@ -196,26 +216,32 @@ public class SortingPanel extends JPanel {
                     animate();
                     if (bubblePressed == true)
                     {
+                        setLabel("Bubble Sort Algorithm");
                         playMusic("C:\\Users\\ghale\\Downloads\\sounds\\bubble.wav");
+
                     }
 
                     if (quickPressed == true)
                     {
                         playMusic("C:\\Users\\ghale\\Downloads\\sounds\\quick.wav");
+                        setLabel("Quick Sort Algorithm");
                     }
 
                     if (insertionPressed == true)
                     {
                         playMusic("C:\\Users\\ghale\\Downloads\\sounds\\insert.wav");
+                        setLabel("Insertion Sort Algorithm");
                     }
 
                     if (mergePressed == true)
                     {
+                        setLabel("Merge Sort Algorithm");
                         playMusic("C:\\Users\\ghale\\Downloads\\sounds\\merge.wav");
                     }
 
                     if (selectionPressed == true)
                     {
+                        setLabel("Selection Sort Algorithm");
                         playMusic("C:\\Users\\ghale\\Downloads\\sounds\\quick.wav");
                     }
 
@@ -402,8 +428,11 @@ public class SortingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 playButtonClickSound();
+                setLabel(" ");
                 if (currentClip != null && currentClip.isActive()) {
+
                     currentClip.stop(); // stops the currently playing music
+
                 }
 
                 reset.setBackground(Color.red);
@@ -533,7 +562,12 @@ public class SortingPanel extends JPanel {
         this.add(size);
         this.add(speed);
         this.add(speedSlider);
+
+
+
     }
+
+
 
 
     // Modify setArray method to accept the array size as a parameter
@@ -612,6 +646,8 @@ public class SortingPanel extends JPanel {
 
 
                         if (isRunning == true) {
+
+
 
 
                             array = bubbleSort.sortOnlyOneItem();
@@ -833,6 +869,9 @@ public class SortingPanel extends JPanel {
 
             if (g.getColor() != Color.MAGENTA && g.getColor() != Color.GREEN && g.getColor() != Color.BLUE && g.getColor() != Color.RED)
                 g.setColor(Color.YELLOW);
+
+            if (isSorted())
+                g.setColor(Color.white);
 
             int xCoordinate = 200 + i * 14;
             int rectWidth = 9;
