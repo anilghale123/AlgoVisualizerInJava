@@ -20,7 +20,7 @@ class Home extends JPanel implements ActionListener {
     JLabel label1 = new JLabel("\"An algorithm must be seen to be believed.\"");
     JLabel label2 = new JLabel("<html>This application helps you to understand sorting algorithms <br>better by visualizing them.</html>");
 
-     private Clip currentClip = null;
+     private Clip currentClip;
 
     public Home(JPanel cardPanel) {
         this.cardPanel = cardPanel; // Store the reference to the cardPanel
@@ -47,12 +47,12 @@ class Home extends JPanel implements ActionListener {
         start.setFont(new Font("Arial", Font.BOLD,13));
 
         try {
-            currentClip = null;
+            // Initialize and assign the currentClip field
             File soundFile = new File("C:\\Users\\ghale\\Downloads\\sounds\\yourName.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
+            currentClip = AudioSystem.getClip();
+            currentClip.open(audioInputStream);
+            currentClip.start();
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
             ex.printStackTrace();
         }
@@ -131,8 +131,11 @@ class Home extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == start) {
-            if (currentClip != null && currentClip.isActive()) {
-                currentClip.stop(); // stops the currently playing music
+            if (currentClip != null) {
+                System.out.println("Stopping music");
+                currentClip.stop(); // Stop the currently playing music
+            } else {
+                System.out.println("currentClip is null");
             }
             playButtonClickSound(); // Play sound when the "Get Started" button is clicked
 
@@ -142,13 +145,11 @@ class Home extends JPanel implements ActionListener {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "sortingPanel");
 
-
-
-
             // Initialize stardust after adding SortingPanel
-
         }
     }
+
+
 
     private void playButtonClickSound() {
         try {
