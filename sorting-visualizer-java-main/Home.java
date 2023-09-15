@@ -48,7 +48,7 @@ class Home extends JPanel implements ActionListener {
 
         try {
             // Initialize and assign the currentClip field
-            File soundFile = new File("C:\\Users\\ghale\\Downloads\\sounds\\yourName.wav");
+            File soundFile = new File("yourName.wav");
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             currentClip = AudioSystem.getClip();
             currentClip.open(audioInputStream);
@@ -86,7 +86,7 @@ class Home extends JPanel implements ActionListener {
     private void initializeStars() {
         // Create random stars and add them to the list
         Random random = new Random();
-        int numStars = 100; // Adjust the number of stars as needed
+        int numStars = 200; // Adjust the number of stars as needed
         int panelWidth = getWidth();
         int panelHeight = getHeight();
 

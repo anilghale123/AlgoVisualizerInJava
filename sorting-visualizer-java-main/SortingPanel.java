@@ -223,32 +223,32 @@ public class SortingPanel extends JPanel {
                     if (bubblePressed == true)
                     {
                         setLabel("Bubble Sort Algorithm");
-                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\bubble.wav");
+                        playMusic("bubble.wav");
 
                     }
 
                     if (quickPressed == true)
                     {
-                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\quick.wav");
+                        playMusic("quick.wav");
                         setLabel("Quick Sort Algorithm");
                     }
 
                     if (insertionPressed == true)
                     {
-                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\insert.wav");
+                        playMusic("insert.wav");
                         setLabel("Insertion Sort Algorithm");
                     }
 
                     if (mergePressed == true)
                     {
                         setLabel("Merge Sort Algorithm");
-                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\merge.wav");
+                        playMusic("merge.wav");
                     }
 
                     if (selectionPressed == true)
                     {
                         setLabel("Selection Sort Algorithm");
-                        playMusic("C:\\Users\\ghale\\Downloads\\sounds\\quick.wav");
+                        playMusic("quick.wav");
                     }
 
 
