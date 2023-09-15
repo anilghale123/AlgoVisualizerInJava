@@ -72,8 +72,10 @@ public class SortingPanel extends JPanel {
     private JLabel sortLabel;
 
     private int stepCount = 0;
-    private int swapCount = 0;
+
     private long startTime = 0;
+    private long elapsedTime = 0;
+
 
 
     private void playButtonClickSound() {
@@ -442,7 +444,13 @@ public class SortingPanel extends JPanel {
                 reset.setBackground(Color.red);
                 start.setBackground(Color.green);
 
+
                 setArray(newSize);
+
+                stepCount = 0;
+
+                elapsedTime = 0;
+
 
                 // reset bubbleSort object
                 bubbleSort.setCompareIndex(Integer.MAX_VALUE);
@@ -626,7 +634,7 @@ public class SortingPanel extends JPanel {
 
     public void animate() throws Exception {
         stepCount = 0;
-        swapCount = 0;
+
         startTime = System.currentTimeMillis();
 
         if (isBubble) {
@@ -887,14 +895,14 @@ public class SortingPanel extends JPanel {
 
             if (isRunning) {
                 long currentTime = System.currentTimeMillis();
-                long elapsedTime = (currentTime - startTime) / 1000; // Convert to seconds
+                 elapsedTime = (currentTime - startTime) / 1000; // Convert to seconds
                 g.drawString("Time: " + elapsedTime + " seconds", 970, 60);
-                time =  elapsedTime;
+
 
             }
 
             g.drawString("Steps: " + stepCount, 970, 40);
-            g.drawString("Time: " + time + " seconds", 970, 60);
+            g.drawString("Time: " + elapsedTime + " seconds", 970, 60);
 
 
 
