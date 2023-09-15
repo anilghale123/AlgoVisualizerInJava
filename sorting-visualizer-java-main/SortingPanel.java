@@ -686,6 +686,7 @@ public class SortingPanel extends JPanel {
                     } else {
                         if (isRunning == true)
                             array = insertionSort.sortOnlyOneItem();
+                        stepCount++;
                     }
 
                     repaint();
@@ -719,6 +720,7 @@ public class SortingPanel extends JPanel {
                     } else {
                         if (isRunning == true)
                             array = selectionSort.sortOnlyOneItem();
+                        stepCount++;
 
                     }
 
@@ -754,6 +756,7 @@ public class SortingPanel extends JPanel {
 
                         if (isRunning == true)
                             array = quickSort.sortOnlyOneItem();
+                        stepCount++;
                     }
 
                     repaint();
@@ -781,6 +784,7 @@ public class SortingPanel extends JPanel {
                     if (stepIndex < sortingSteps.size() && isRunning) {
                         array = sortingSteps.get(stepIndex); // Get the array for the current step
                         stepIndex++;
+                        stepCount++;
 
                         repaint(); // Repaint with the current step's array
                     } else {
