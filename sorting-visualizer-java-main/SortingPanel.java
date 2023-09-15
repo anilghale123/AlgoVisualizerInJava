@@ -14,6 +14,7 @@ import java.util.List;
 
 public class SortingPanel extends JPanel {
 
+    long time = 0;
     private static final long serialVersionUID = 1L;
 
     private Random random;
@@ -70,6 +71,10 @@ public class SortingPanel extends JPanel {
 
     private JLabel sortLabel;
 
+    private int stepCount = 0;
+    private int swapCount = 0;
+    private long startTime = 0;
+
 
     private void playButtonClickSound() {
         try {
@@ -105,7 +110,7 @@ public class SortingPanel extends JPanel {
         }
 
         sortLabel = new JLabel(label);
-        sortLabel.setBounds(500, 40, 300, 50);
+        sortLabel.setBounds(530, 40, 300, 50);
         sortLabel.setFont(new Font("Arial", Font.BOLD, 20));
         sortLabel.setForeground(Color.white);
 
@@ -128,7 +133,6 @@ public class SortingPanel extends JPanel {
         sizeSlider.setBounds(50, 40, 160, 30);
         sizeSlider.setMajorTickSpacing(10);
         sizeSlider.setPaintTicks(true);
-       // sizeSlider.setBorder(BorderFactory.createLineBorder(Color.darkGray,2));
         sizeSlider.setBackground(Color.black);
 
         size = new JLabel("array size");
@@ -621,13 +625,12 @@ public class SortingPanel extends JPanel {
     }
 
     public void animate() throws Exception {
-
-
+        stepCount = 0;
+        swapCount = 0;
+        startTime = System.currentTimeMillis();
 
         if (isBubble) {
-
             bubbleSort.setCompareIndex(0);
-
             Timer bubbleTimer = new Timer(speedSlider.getMaximum() - delay, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -642,15 +645,14 @@ public class SortingPanel extends JPanel {
                             currentClip.stop(); // stops the currently playing music
                         }
                     } else {
-
-
-
                         if (isRunning == true) {
-
-
-
-
                             array = bubbleSort.sortOnlyOneItem();
+                            stepCount++; // Increment the step count
+                           // swapCount += bubbleSort.getSwapCount();
+
+
+
+
                         }
                         }
 
@@ -872,6 +874,25 @@ public class SortingPanel extends JPanel {
 
             if (isSorted())
                 g.setColor(Color.white);
+
+
+           // g.drawString("Swaps: " + swapCount, 970, 60);
+            Font largerFont = new Font("Arial", Font.BOLD, 16);
+            g.setFont(largerFont);
+
+
+            if (isRunning) {
+                long currentTime = System.currentTimeMillis();
+                long elapsedTime = (currentTime - startTime) / 1000; // Convert to seconds
+                g.drawString("Time: " + elapsedTime + " seconds", 970, 60);
+                time =  elapsedTime;
+
+            }
+
+            g.drawString("Steps: " + stepCount, 970, 40);
+            g.drawString("Time: " + time + " seconds", 970, 60);
+
+
 
             int xCoordinate = 200 + i * 14;
             int rectWidth = 9;
