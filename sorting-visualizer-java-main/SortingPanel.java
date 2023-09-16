@@ -154,7 +154,7 @@ public class SortingPanel extends JPanel {
 
 
 
-        speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 500); // Adjust the range and initial value as needed
+        speedSlider = new JSlider(JSlider.HORIZONTAL, 500, 2000, 500); // Adjust the range and initial value as needed
 // Set the bounds for the slider
         speedSlider.setBounds(255, 35, 160, 30);
         speedSlider.setBackground(Color.black);
@@ -248,7 +248,7 @@ public class SortingPanel extends JPanel {
                     if (selectionPressed == true)
                     {
                         setLabel("Selection Sort Algorithm");
-                        playMusic("quick.wav");
+                        playMusic("select.wav");
                     }
 
 
@@ -919,9 +919,12 @@ public class SortingPanel extends JPanel {
             FontMetrics fm = g.getFontMetrics();
             int textWidth = fm.stringWidth(numberText);
             int textHeight = fm.getHeight();
-            int textX = xCoordinate + (rectWidth - textWidth) / 2;
-            int textY = 556 - textHeight / 2 + textHeight; // Align the text to the bottom of the rectangle
+            int textX =( xCoordinate + (rectWidth - textWidth) / 2)+9;
+            int textY = 550 - textHeight / 2 + textHeight; // Align the text to the bottom of the rectangle
             g.setColor(Color.black); // Set a bright color for numbers
+
+            Font small = new Font("Arial", Font.BOLD, 7);
+            g.setFont(small);
             g.drawString(numberText, textX, textY);
 
         }

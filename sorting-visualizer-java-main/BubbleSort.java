@@ -3,10 +3,12 @@ public class BubbleSort {
     private int[] array;
     private int array_index, compare_index;
 
-    public BubbleSort(int[] array) {
+    public BubbleSort(int[] array)
+    {
         this.array = array;
         array_index = 0;
         compare_index = Integer.MAX_VALUE;
+
     }
 
     public int[] sortOnlyOneItem() {
