@@ -229,7 +229,7 @@ public class SortingPanel extends JPanel {
 
                     if (quickPressed == true)
                     {
-                        playMusic("quick.wav");
+                        playMusic("merge.wav");
                         setLabel("Quick Sort Algorithm");
                     }
 
